@@ -51,3 +51,28 @@ def process_diagnostic_output(llm_output: Dict) -> Dict:
     llm_output["diagnostic_confidence"] = confidence
 
     return llm_output
+
+VALID_LIKELIHOODS = {"High", "Medium", "Low"}
+VALID_EASE = {"Easy", "Moderate", "Hard"}
+
+
+def normalize_cause_fields(causes):
+    for cause in causes:
+        likelihood = cause.get("likelihood", "Low")
+        ease = cause.get("ease_of_check", "Hard")
+
+        # Normalize capitalization
+        likelihood = likelihood.capitalize()
+        ease = ease.capitalize()
+
+        # Validate values
+        if likelihood not in VALID_LIKELIHOODS:
+            likelihood = "Low"
+
+        if ease not in VALID_EASE:
+            ease = "Hard"
+
+        cause["likelihood"] = likelihood
+        cause["ease_of_check"] = ease
+
+    return causes
