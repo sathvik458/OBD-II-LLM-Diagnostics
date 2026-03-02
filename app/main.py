@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException
 from app.models import DiagnosticRequest, DiagnosticResponse
 from app.prompt_builder import build_diagnostic_prompt
 from app.llm.factory import get_llm_provider
-from app.diagnostic_processor import process_output  # make sure this file exists
+from app.diagnostic_processor import process_diagnostic_output # make sure this file exists
 
 app = FastAPI()
 
@@ -44,7 +44,7 @@ async def diagnose(request: DiagnosticRequest):
         )
 
     # Deterministic post-processing (sorting + confidence)
-    processed = process_output(parsed)
+    processed = process_diagnostic_output(parsed)
 
     # Return validated response
     return DiagnosticResponse(**processed)
