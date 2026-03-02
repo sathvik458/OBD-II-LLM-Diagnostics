@@ -76,3 +76,15 @@ def normalize_cause_fields(causes):
         cause["ease_of_check"] = ease
 
     return causes
+
+def process_diagnostic_output(llm_output: Dict) -> Dict:
+    causes = llm_output.get("probable_causes", [])
+
+    causes = normalize_cause_fields(causes)
+    sorted_causes = sort_causes(causes)
+    confidence = compute_confidence(sorted_causes)
+
+    llm_output["probable_causes"] = sorted_causes
+    llm_output["diagnostic_confidence"] = confidence
+
+    return llm_output
