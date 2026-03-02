@@ -1,73 +1,69 @@
 # OBD-II-LLM-Diagnostics
 # 🚧 Work in progress.
-Vehicle Diagnostic LLM
-This is a diagnostic platform which assists in diagnosing automotive issues and problems with the help of Large language models.
+Vehicle Diagnostic LLM: This is a diagnostic platform which assists in diagnosing automotive issues and problems with the help of Large Language Models (LLMs).
 
+### 🚀 Key Features
 This project combines:
- OBD-II fault code reasoning
+* **OBD-II fault code reasoning**
+* **Interactive vehicle intake**
+* **VIN decoding** (US support)
+* **Mileage-aware fault weighting**
+* **Deterministic post-processing**
 
-Interactive vehicle intake
+---
 
-VIN decoding (US support)
+### 🧠 Architecture Overview
+**High-level flow:**
+`User` -> `Vehicle Selection (Brand/Model/Year)` -> `Engine Clarification (LLM-assisted)` -> `Mileage Input` -> `OBD Code + Symptoms` -> `LLM Diagnostic` -> `Deterministic Post-Processing` -> `Structured Response`
 
-Mileage-aware fault weighting
+**The system is layered:**
+1. **API Layer:** FastAPI
+2. **Service Layer:** Intake + Diagnostic Orchestration
+3. **Domain Layer:** Weighting + Post Processing
+4. **LLM Abstraction Layer**
+5. **Vehicle Metadata Repository:** JSON (DB migration later)
 
-Deterministic post-processing
+---
 
-🧠 Architecture Overview
+### ⚙️ Getting Started
 
-High-level flow:
+1. **Clone Repository**
+   ```bash
+   git clone [https://github.com/sathvik458/OBD-II-LLM-Diagnostics.git](https://github.com/sathvik458/OBD-II-LLM-Diagnostics.git)
+   cd OBD-II-LLM-Diagnostics
+Create Virtual Environment
 
-User
-→ Vehicle Selection (Brand/Model/Year)
-→ Engine Clarification (LLM-assisted)
-→ Mileage Input
-→ OBD Code + Symptoms
-→ LLM Diagnostic
-→ Deterministic Post-Processing
-→ Structured Response
-
-The system is layered:
-
-API Layer (FastAPI)
-
-Service Layer (Intake + Diagnostic Orchestration)
-
-Domain Layer (Weighting + Post-Processing)
-
-LLM Abstraction Layer
-
-Vehicle Metadata Repository (JSON → DB migration later)
-
-⚙️ Getting Started
-1️⃣ Clone Repository
-git clone https://github.com/yourusername/vehicle-diagnostics-llm.git
-cd vehicle-diagnostics-llm
-2️⃣ Create Virtual Environment
+Bash
 python -m venv .venv
 .venv\Scripts\activate
-3️⃣ Install Dependencies
+Install Dependencies
+
+Bash
 pip install -r requirements.txt
-4️⃣ Create .env File
+Setup Environment Variables
+Create a .env file in the root directory:
+
+Code snippet
 GEMINI_API_KEY=your_key_here
 LLM_PROVIDER=gemini
-5️⃣ Run Server
+Run Server
+
+Bash
 uvicorn app.main:app --reload
+Open API Documentation: http://127.0.0.1:8000/docs
 
-Open:
+🗺️ Roadmap
+Phase 1: Interactive Intake Flow
 
-http://127.0.0.1:8000/docs
+Phase 2: Expanded Vehicle Metadata
 
-🛣️ Roadmap
+Phase 3: Scraper-Based Data Ingestion
 
-Phase 1 – Interactive Intake Flow
-Phase 2 – Expanded Vehicle Metadata
-Phase 3 – Scraper-Based Data Ingestion
-Phase 4 – PostgreSQL Migration
-Phase 5 – Diagnostic Analytics Dashboard
+Phase 4: PostgreSQL Migration
+
+Phase 5: Diagnostic Analytics Dashboard
 
 🤝 Contributing
-
 We welcome contributions in:
 
 Vehicle metadata expansion
