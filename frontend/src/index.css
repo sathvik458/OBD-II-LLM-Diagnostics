@@ -1,0 +1,120 @@
+/* ── Design tokens ──────────────────────────────────────────── */
+:root {
+  --bg:        #05050A;
+  --bg-card:   rgba(255, 255, 255, 0.035);
+  --bg-card-h: rgba(255, 255, 255, 0.06);
+  --border:    rgba(255, 255, 255, 0.07);
+  --border-h:  rgba(255, 255, 255, 0.18);
+
+  --lime:      #C9FF3B;   /* primary accent */
+  --cyan:      #00CFFF;   /* secondary accent */
+  --red:       #FF2D20;   /* critical */
+  --orange:    #FF8C00;   /* high severity */
+  --green:     #00E87A;   /* safe / low */
+  --purple:    #B06EFF;   /* medium severity */
+
+  --text:      #FFFFFF;
+  --text-muted: rgba(255,255,255,0.45);
+  --text-dim:   rgba(255,255,255,0.2);
+
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Dot-grid background (Nothing-style) ─────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.065) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Typography helpers ──────────────────────────────────── */
+.mono { font-family: var(--font-mono); }
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-h); border-radius: 2px; }
+
+/* ── Global layout ─────────────────────────────────────────── */
+#root { position: relative; z-index: 1; min-height: 100dvh; }
+
+/* ── Keyframes ──────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes glitch {
+  0%,100% { clip-path: inset(0 0 100% 0); transform: translateX(0); }
+  20%      { clip-path: inset(20% 0 60% 0); transform: translateX(-4px); }
+  40%      { clip-path: inset(60% 0 20% 0); transform: translateX(4px); }
+  60%      { clip-path: inset(40% 0 40% 0); transform: translateX(-2px); }
+  80%      { clip-path: inset(80% 0 5%  0); transform: translateX(2px); }
+}
+
+@keyframes scanline {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(100vh); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes bar-fill {
+  from { width: 0; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ── Utility ─────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
